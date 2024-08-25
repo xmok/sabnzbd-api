@@ -713,16 +713,9 @@ export class Client {
     warnings(): Promise<ErrorWarning[]> {
         return new Promise<ErrorWarning[]>(async (resolve, reject) => {
             try {
-                let results = await this.methodCall("warnings");
-                let warnings: ErrorWarning[] = [];
-
-                for( let result of results ) {
-                    if( !result.text || result.type !== "WARNING" || !result.time )
-                        reject(new Error("Invalid response from SABnzbd"));
-                    warnings.push({text: result.text, type: ErrorType.Warning, time: result.time});    
-                }
-
-                resolve(warnings);
+                let resultsObj = yield this.methodCall("warnings");
+                let results = resultsObj.warnings;
+                resolve(results);
             } catch( error ) {
                 reject(error);
             }
