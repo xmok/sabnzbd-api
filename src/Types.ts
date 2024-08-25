@@ -4,13 +4,15 @@
 //   Written By Jeremy Harmon <jeremy.harmon@zoho.com>
 
 export enum ErrorType {
-    Warning
+    WARNING="WARNING",
+    ERROR="ERROR"
 }
 
 export interface ErrorWarning {
     text: string,
     type: ErrorType,
     time: number
+    origin?: string
 }
 
 export interface ServerStats {
